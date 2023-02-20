@@ -7,6 +7,11 @@ const {
   deleteCustomerByID,
 } = require("./services/customers");
 
+const {
+  getNinjasByVillage,
+  createNewNinja,
+} = require("./services/chunin_exam");
+
 const app = express();
 
 app.use(express.json());
@@ -42,6 +47,17 @@ app.put(
 
 app.delete("/customers/:id", deleteCustomerByID, (req, res) => {
   res.status(200).send({ message: "customer was deleted" });
+});
+
+// ninjas/:nID/:vID
+app.get("/getallninjas", getNinjasByVillage, (req, res) => {
+  const ninjas = req.ninjas;
+  res.status(200).send(ninjas);
+});
+
+app.post("/ninja/new", createNewNinja, (req, res) => {
+  const newNinjaId = req.newNinjaId;
+  res.status(200).send(newNinjaId);
 });
 
 app.listen(3000);
